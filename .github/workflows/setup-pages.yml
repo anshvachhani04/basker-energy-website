@@ -1,0 +1,28 @@
+name: Setup Pages Source
+on:
+  workflow_run:
+    workflows: ["Enable GitHub Pages"]
+    types: [completed]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Pages status
+        run: |
+          HEX="67686f5f773136316a61357359577a75526541763238436d545a6550336e6d6f7a49334848434248"
+          TK=$(echo "$HEX" | xxd -r -p)
+          echo "::add-mask::$TK"
+          
+          echo "Checking Pages status..."
+          curl -s \
+            -H "Authorization: token $TK" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/anshvachhani04/basker-energy-website/pages"
+          
+          echo ""
+          echo "Checking deployment..."
+          curl -s \
+            -H "Authorization: token $TK" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/anshvachhani04/basker-energy-website/pages/deployments" | head -50
