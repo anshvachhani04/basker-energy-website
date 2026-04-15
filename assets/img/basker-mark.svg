@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-label="BASKER mark">
+  <g transform="translate(110,110)">
+    <g fill="#FFFFFF">
+      <polygon points="0,-100 -10,-72 10,-72"/>
+      <polygon points="0,100 -10,72 10,72"/>
+      <polygon points="-100,0 -72,-10 -72,10"/>
+      <polygon points="100,0 72,-10 72,10"/>
+      <polygon points="-71,-71 -55,-55 -45,-65 -65,-45"/>
+      <polygon points="71,71 55,55 45,65 65,45"/>
+      <polygon points="-71,71 -55,55 -45,65 -65,45"/>
+      <polygon points="71,-71 55,-55 45,-65 65,-45"/>
+      <polygon points="-38,-93 -45,-67 -28,-71"/>
+      <polygon points="38,-93 45,-67 28,-71"/>
+      <polygon points="-38,93 -45,67 -28,71"/>
+      <polygon points="38,93 45,67 28,71"/>
+      <polygon points="-93,-38 -67,-45 -71,-28"/>
+      <polygon points="-93,38 -67,45 -71,28"/>
+      <polygon points="93,-38 67,-45 71,-28"/>
+      <polygon points="93,38 67,45 71,28"/>
+    </g>
+    <circle r="62" fill="none" stroke="#FFFFFF" stroke-width="6"/>
+    <g fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linejoin="round">
+      <polygon points="0,-38 32,0 0,38 -32,0"/>
+      <polygon points="0,-22 18,0 0,22 -18,0"/>
+      <circle r="6" fill="#FFFFFF"/>
+    </g>
+  </g>
+</svg>

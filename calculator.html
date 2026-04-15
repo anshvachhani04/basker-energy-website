@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Estimate cost reduction, payback and CO2 from deploying BASKER." />
+<meta name="theme-color" content="#0A0E1A" />
+<meta property="og:title" content="ROI Calculator — BASKER Energy" />
+<meta property="og:description" content="Estimate cost reduction, payback and CO2 from deploying BASKER." />
+<title>ROI Calculator — BASKER Energy</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__brand" aria-label="BASKER Energy home">
+      <img src="assets/img/favicon.svg" alt="" />
+      <div><span>BASKER</span><small>ENERGY</small></div>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="platform.html">Platform</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="industries.html">Industries</a>
+      <a href="dashboard.html">Live Demo</a>
+      <a href="investors.html">Investors</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav__cta">
+      <a href="calculator.html" class="btn btn--ghost">ROI Calculator</a>
+      <a href="contact.html" class="btn btn--primary btn--sm">Talk to BASKER →</a>
+      <button class="nav__burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="pagehead">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">BASKER</a> / ROI Calculator</div>
+    <span class="chip"><span class="chip__dot"></span>Live · No signup required</span>
+    <h1 class="mt-2">Energy ROI Calculator</h1>
+    <p>Estimate cost reduction, payback period, CO₂ displaced and 10-year value for deploying BASKER on your facility. Works for industrial sites, utilities, IPPs, data centers, and microgrids.</p>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="grid" style="grid-template-columns: 380px 1fr; gap: 36px;">
+      <div class="reveal">
+        <div class="card card--solid" style="position: sticky; top: 100px;">
+          <h3>Your facility</h3>
+          <div class="field">
+            <label>Facility type</label>
+            <select id="facType">
+              <option value="industrial">Industrial / manufacturing</option>
+              <option value="utility">Utility / DSO</option>
+              <option value="ipp">Renewables IPP</option>
+              <option value="data">Data center</option>
+              <option value="city">City / district</option>
+              <option value="oil">Oil &amp; Gas</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Annual energy consumption (GWh)</label>
+            <input id="facGwh" type="number" min="1" max="50000" value="120" />
+          </div>
+          <div class="field">
+            <label>Average tariff (₹ / kWh)</label>
+            <input id="facTariff" type="number" min="2" max="50" step="0.1" value="9.4" />
+          </div>
+          <div class="field">
+            <label>On-site renewable capacity (MW)</label>
+            <input id="facRen" type="number" min="0" max="5000" value="14" />
+          </div>
+          <div class="field">
+            <label>Storage capacity (MWh)</label>
+            <input id="facStor" type="number" min="0" max="10000" value="8" />
+          </div>
+          <div class="field">
+            <label>BASKER modules to deploy</label>
+            <select id="facMods" multiple size="6">
+              <option selected>AI Energy Cloud</option>
+              <option selected>Industrial Energy OS</option>
+              <option selected>Storage Intelligence</option>
+              <option>Smart Grid OS</option>
+              <option>Carbon Intelligence</option>
+              <option>Cybersecurity</option>
+              <option>Hybrid Plant Manager</option>
+            </select>
+            <small style="display:block; margin-top:6px; color:var(--ink-3);">Hold ⌘ / Ctrl to multi-select</small>
+          </div>
+          <button class="btn btn--primary" onclick="calcRun()" style="width:100%;">Recalculate →</button>
+        </div>
+      </div>
+
+      <div class="reveal delay-1">
+        <div class="grid grid-3">
+          <div class="kpi"><span class="label">Annual savings</span><strong id="rOut1">—</strong><div class="delta" id="rOut1d">—</div></div>
+          <div class="kpi"><span class="label">Payback period</span><strong id="rOut2">—</strong><div class="delta" id="rOut2d">—</div></div>
+          <div class="kpi"><span class="label">CO₂ displaced / yr</span><strong id="rOut3">—</strong><div class="delta" id="rOut3d">—</div></div>
+        </div>
+
+        <div class="chart-card mt-3">
+          <h4>Projected cost reduction · 10 years</h4>
+          <small>BASKER deployment vs status quo</small>
+          <div class="chart-box chart-box--md mt-2"><canvas id="calcChart"></canvas></div>
+        </div>
+
+        <div class="grid grid-2 mt-3">
+          <div class="card">
+            <h3 style="font-size:18px;">10-year NPV</h3>
+            <p style="font-size:32px; font-weight:800; color:var(--ink-0); margin:8px 0;">₹<span id="rNpv">—</span> Cr</p>
+            <p style="margin:0; font-size:13px;">Discounted at 10% WACC, includes BASKER subscription &amp; deployment.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size:18px;">Modules &amp; outcomes</h3>
+            <ul id="rModList" style="margin:8px 0 0; padding-left:18px; font-size:14px; color:var(--ink-2);"></ul>
+          </div>
+        </div>
+
+        <div class="card mt-3" style="background: linear-gradient(135deg, rgba(232,119,34,0.10), rgba(232,119,34,0.02));">
+          <h3>Send this scenario to BASKER</h3>
+          <p>Get a custom proposal with verified case-studies, pricing, and a 14-day pilot scoping plan.</p>
+          <a href="contact.html" class="btn btn--primary">Email this scenario →</a>
+        </div>
+
+        <p class="meta mt-3">Indicative only. Final results depend on facility profile, tariff, and applicable regulations. BASKER's commercial team will validate within 14 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/img/basker-mark.svg" alt="BASKER" />
+        <p><strong style="color:var(--ink-0);">BASKER Energy</strong><br/>The intelligent energy infrastructure company. Built with BCG. Engineered for the planet.</p>
+      </div>
+      <div class="footer__col"><h5>Product</h5>
+        <a href="platform.html">Energy Cloud</a><a href="solutions.html">12 Solutions</a><a href="dashboard.html">Live Dashboard</a><a href="calculator.html">ROI Calculator</a><a href="assistant.html">Ask BASKER AI</a>
+      </div>
+      <div class="footer__col"><h5>Solutions</h5>
+        <a href="industries.html">Industries</a><a href="solutions.html#carbon">Carbon &amp; ESG</a><a href="solutions.html#cyber">Cybersecurity</a><a href="map.html">Global Reach</a>
+      </div>
+      <div class="footer__col"><h5>Company</h5>
+        <a href="about.html">About</a><a href="about.html#leadership">Leadership</a><a href="investors.html">Investors</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col"><h5>Connect</h5>
+        <a href="mailto:basker.global@gmail.com">basker.global@gmail.com</a><a href="tel:+917600565870">+91 76005 65870</a><a href="https://github.com/anshvachhani04" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <div>© <span data-year>2026</span> BASKER Energy<span class="footer__sun"></span>Bhāskara · Akṣaya · Śakti · Kriyā · Enhancement · Renewal</div>
+      <div><a href="contact.html">Privacy</a> · <a href="contact.html">Terms</a> · <a href="contact.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+let calcChartInst;
+function calcRun() {
+  const fac = document.getElementById('facType').value;
+  const gwh = parseFloat(document.getElementById('facGwh').value) || 0;
+  const tar = parseFloat(document.getElementById('facTariff').value) || 0;
+  const ren = parseFloat(document.getElementById('facRen').value) || 0;
+  const stor = parseFloat(document.getElementById('facStor').value) || 0;
+  const modsSelect = document.getElementById('facMods');
+  const mods = Array.from(modsSelect.selectedOptions).map(o => o.value);
+
+  // Reduction % per facility type (base) and module multipliers
+  const baseReduction = {industrial: 0.24, utility: 0.18, ipp: 0.16, data: 0.21, city: 0.19, oil: 0.22}[fac] || 0.18;
+  const moduleBoost = {
+    'AI Energy Cloud': 0.04,
+    'Industrial Energy OS': 0.08,
+    'Storage Intelligence': 0.06,
+    'Smart Grid OS': 0.05,
+    'Carbon Intelligence': 0.02,
+    'Cybersecurity': 0.01,
+    'Hybrid Plant Manager': 0.04
+  };
+  let totalRed = baseReduction;
+  mods.forEach(m => totalRed += (moduleBoost[m] || 0));
+  totalRed = Math.min(totalRed, 0.55);
+
+  const annualEnergyCost = gwh * 1e6 * tar; // INR
+  const annualSavings = annualEnergyCost * totalRed;
+
+  // Capacity benefits: solar generation lift + storage revenue stack
+  const solarLiftKwh = ren * 1000 * 1700 * 0.096; // 1700 cuf, 9.6% lift
+  const solarLiftSavings = solarLiftKwh * tar * 0.5;
+  const storRev = stor * 1000 * 365 * 4 * 0.41; // arbitrage uplift
+  const totalAnnualSavings = annualSavings + solarLiftSavings + storRev;
+
+  // BASKER subscription (illustrative, INR Cr/yr)
+  const subscriptionCr = Math.max(0.6, mods.length * 0.4 + gwh * 0.004);
+  const deploymentCr = Math.max(0.4, mods.length * 0.18);
+  const annualNet = totalAnnualSavings - subscriptionCr * 1e7;
+
+  const paybackMonths = (deploymentCr * 1e7) / Math.max(annualNet, 1) * 12;
+
+  // CO2 (industry avg India: 0.71 kg CO2/kWh grid mix)
+  const co2 = gwh * 1e6 * totalRed * 0.71 / 1000; // tons
+
+  // 10-yr NPV
+  let npv = -deploymentCr * 1e7;
+  const r = 0.10;
+  for (let y = 1; y <= 10; y++) npv += annualNet / Math.pow(1+r, y);
+  const npvCr = npv / 1e7;
+
+  document.getElementById('rOut1').textContent = '₹' + (totalAnnualSavings/1e7).toFixed(1) + ' Cr';
+  document.getElementById('rOut1d').textContent = (totalRed*100).toFixed(1) + '% energy cost reduction';
+  document.getElementById('rOut2').textContent = paybackMonths.toFixed(1) + ' mo';
+  document.getElementById('rOut2d').textContent = paybackMonths < 18 ? '✓ Best-in-class' : 'Standard';
+  document.getElementById('rOut3').textContent = co2.toLocaleString(undefined, {maximumFractionDigits:0}) + ' T';
+  document.getElementById('rOut3d').textContent = '~' + (co2/4.6).toFixed(0) + 'k cars off road';
+  document.getElementById('rNpv').textContent = npvCr.toFixed(1);
+
+  const ml = document.getElementById('rModList');
+  ml.innerHTML = mods.map(m => '<li>' + m + '</li>').join('') + '<li><strong style="color:var(--accent)">Annual subscription: ~₹' + subscriptionCr.toFixed(1) + ' Cr</strong></li>';
+
+  // Chart
+  const labels = Array.from({length:11}, (_,i) => 'Y'+i);
+  const status_quo = labels.map((_,i) => annualEnergyCost * i / 1e7);
+  const with_basker = labels.map((_,i) => i === 0 ? deploymentCr : (annualEnergyCost * (1-totalRed) * i + subscriptionCr * i * 1e7 + deploymentCr * 1e7) / 1e7);
+  if (calcChartInst) calcChartInst.destroy();
+  const ctx = document.getElementById('calcChart');
+  if (ctx) {
+    calcChartInst = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: 'Status quo (₹ Cr cumulative)', data: status_quo, borderColor: '#A6B3CC', backgroundColor: 'rgba(166,179,204,0.10)', tension: 0.3, fill: true, pointRadius: 3 },
+          { label: 'With BASKER (₹ Cr cumulative)', data: with_basker, borderColor: '#E87722', backgroundColor: 'rgba(232,119,34,0.18)', tension: 0.3, fill: true, pointRadius: 3 }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, scales: { y: { ticks: { callback: v => '₹' + v + ' Cr' } } } }
+    });
+  }
+}
+window.addEventListener('load', calcRun);
+</script>
+</body>
+</html>

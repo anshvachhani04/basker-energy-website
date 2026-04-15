@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="BASKER Energy Cloud — the operating system for the planet's energy." />
+<meta name="theme-color" content="#0A0E1A" />
+<meta property="og:title" content="Platform — BASKER Energy" />
+<meta property="og:description" content="BASKER Energy Cloud — the operating system for the planet's energy." />
+<title>Platform — BASKER Energy</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__brand" aria-label="BASKER Energy home">
+      <img src="assets/img/favicon.svg" alt="" />
+      <div><span>BASKER</span><small>ENERGY</small></div>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="platform.html">Platform</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="industries.html">Industries</a>
+      <a href="dashboard.html">Live Demo</a>
+      <a href="investors.html">Investors</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav__cta">
+      <a href="calculator.html" class="btn btn--ghost">ROI Calculator</a>
+      <a href="contact.html" class="btn btn--primary btn--sm">Talk to BASKER →</a>
+      <button class="nav__burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="pagehead">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">BASKER</a> / Platform</div>
+    <span class="chip"><span class="chip__dot"></span>BASKER Energy Cloud · v4.2</span>
+    <h1 class="mt-2">The energy operating system for the planet.</h1>
+    <p>One AI-native control plane across generation, grid, storage, mobility, carbon and security — multi-cloud, edge-aware, infrastructure-grade. Built by a team that has shipped systems for hyperscalers, banks and national grids.</p>
+    <div class="row-wrap mt-3">
+      <a href="dashboard.html" class="btn btn--primary">See it live</a>
+      <a href="contact.html" class="btn">Request architecture deep-dive</a>
+    </div>
+  </div>
+</header>
+
+<div class="subnav">
+  <div class="container subnav__inner">
+    <a href="#cloud">Energy Cloud</a>
+    <a href="#ai">AI Engine</a>
+    <a href="#data">Data Mesh</a>
+    <a href="#edge">Edge & IoT</a>
+    <a href="#integrations">Integrations</a>
+    <a href="#security">Security</a>
+    <a href="#sla">SLA & Scale</a>
+  </div>
+</div>
+
+<section class="section section--tight" id="cloud">
+  <div class="container">
+    <div class="row-feature">
+      <div class="reveal">
+        <span class="kicker">01 — Energy Cloud</span>
+        <h2>BASKER Cloud — the control plane.</h2>
+        <p>A polyglot, multi-tenant, multi-region SaaS that runs your assets, your data and your AI models — with zero hardware lock-in. Deployable in any region, any cloud, any sovereign environment.</p>
+        <div class="grid grid-2 mt-3">
+          <div class="kpi"><span class="label">Regions</span><strong>34</strong><div class="delta">AWS · Azure · GCP · sovereign</div></div>
+          <div class="kpi"><span class="label">Uptime SLA</span><strong>99.995%</strong><div class="delta">12-month rolling</div></div>
+          <div class="kpi"><span class="label">RPO / RTO</span><strong>15s / 60s</strong><div class="delta">Cross-region failover</div></div>
+          <div class="kpi"><span class="label">Tenants</span><strong>1,400+</strong><div class="delta">Hard-isolated</div></div>
+        </div>
+      </div>
+      <div class="row-feature__visual reveal delay-1">
+        <div class="code">
+<span class="c-com">// BASKER Cloud — describe your fleet, deploy in 6 weeks</span><br/>
+<span class="c-key">fleet</span> = basker.<span class="c-key">Fleet</span>(name=<span class="c-str">"jamnagar-1"</span>, region=<span class="c-str">"ap-south-1"</span>)<br/>
+fleet.add_solar(capacity_mw=<span class="c-num">1400</span>, optimizer=<span class="c-str">"ai-tracker"</span>)<br/>
+fleet.add_bess(capacity_mwh=<span class="c-num">800</span>, strategy=<span class="c-str">"revenue-stack"</span>)<br/>
+fleet.add_loads([<span class="c-str">"refining"</span>, <span class="c-str">"chem"</span>, <span class="c-str">"hydrogen"</span>])<br/>
+<br/>
+<span class="c-key">plan</span> = fleet.optimize(horizon=<span class="c-str">"24h"</span>, markets=[<span class="c-str">"day-ahead"</span>, <span class="c-str">"flex"</span>])<br/>
+plan.dispatch()  <span class="c-com"># sub-second to edge</span><br/>
+plan.report(co2=<span class="c-key">True</span>, esg=<span class="c-key">True</span>)
+        </div>
+        <div class="row-wrap mt-3">
+          <span class="chip chip--cyan">Python SDK</span><span class="chip">REST + GraphQL</span><span class="chip chip--green">Kubernetes operator</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="ai" style="background: var(--bg-2);">
+  <div class="container">
+    <div class="row-feature row-feature--reverse">
+      <div class="reveal delay-1">
+        <span class="kicker">02 — AI engine</span>
+        <h2>130+ models. One inference layer.</h2>
+        <p>Demand forecasting, generation prediction, asset health, anomaly detection, RL-based bidding, carbon attribution, autonomous control — all served from a unified, observable, online-learning ML runtime.</p>
+        <dl class="mt-3">
+          <div class="spec"><dt>Frameworks</dt><dd>PyTorch · TensorFlow · JAX · Ray · ONNX · TensorRT</dd></div>
+          <div class="spec"><dt>Forecast accuracy</dt><dd>96.4% MAPE on 24h-ahead generation, 92.1% on demand</dd></div>
+          <div class="spec"><dt>Online learning</dt><dd>Streaming model updates without downtime</dd></div>
+          <div class="spec"><dt>Explainability</dt><dd>SHAP · counterfactual policy traces · operator-readable</dd></div>
+          <div class="spec"><dt>RL agents</dt><dd>Battery dispatch · EV smart-charge · industrial demand response</dd></div>
+        </dl>
+      </div>
+      <div class="row-feature__visual reveal">
+        <h4>Real-time forecast accuracy by horizon</h4>
+        <small>Last 90 days, all sites, generation MAPE</small>
+        <div class="chart-box chart-box--md mt-2"><canvas id="aiAcc"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="data">
+  <div class="container">
+    <div class="row-feature">
+      <div class="reveal">
+        <span class="kicker">03 — Data mesh</span>
+        <h2>The world's most opinionated energy data model.</h2>
+        <p>An open, versioned schema for every device, every meter, every market signal, every regulatory instrument — usable directly from SQL, dbt, Spark, and BI tools. Includes ready-built marts for finance, ops, ESG and trading.</p>
+        <div class="grid grid-2 mt-3">
+          <div class="kpi"><span class="label">Time-series ingest</span><strong>12M ev/s</strong></div>
+          <div class="kpi"><span class="label">Schema</span><strong>180+ entities</strong></div>
+          <div class="kpi"><span class="label">Storage formats</span><strong>Iceberg · Delta · Parquet</strong></div>
+          <div class="kpi"><span class="label">Lakehouse</span><strong>Snowflake · Databricks · BigQuery</strong></div>
+        </div>
+      </div>
+      <div class="row-feature__visual reveal delay-1">
+        <h4>BASKER Energy Schema · domains</h4>
+        <small class="mb-2" style="display:block;">180+ first-class entities</small>
+        <div class="grid grid-2 mt-3" style="gap:10px;">
+          <span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_solar_panel</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_wind_turbine</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_battery</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_meter</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_inverter</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_transformer</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_ev_charger</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">asset_substation</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">site</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">plant</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">feeder</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">grid_node</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">forecast_generation</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">forecast_demand</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">forecast_price</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">forecast_weather</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">market_dam</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">market_rt</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">market_anc</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">market_carbon</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">event_alarm</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">event_anomaly</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">event_curtailment</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">event_islanding</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">esg_scope1</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">esg_scope2</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">esg_scope3</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">esg_credit</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">contract_ppa</span><span class="chip" style="background:rgba(0,196,255,0.08); color:var(--cyan); border-color:rgba(0,196,255,0.18); justify-content:center;">contract_flex</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="edge" style="background: var(--bg-2);">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="kicker">04 — Edge & IoT</span>
+      <h2>Where the photons and electrons live.</h2>
+      <p>BASKER ships its own edge runtime — a hardened gateway that talks every industrial protocol, runs ML at the meter, and survives offline operation for days.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card reveal"><div class="card__icon">📡</div><h3>Protocols</h3><p>OPC UA · Modbus RTU/TCP · BACnet · DNP3 · IEC 60870-5-104 · IEC 61850 · SunSpec · OCPP 2.0.1 · ISO 15118 · MQTT · LoRaWAN · Sigfox.</p></div>
+      <div class="card reveal delay-1"><div class="card__icon card__icon--cyan">⚙</div><h3>Edge runtime</h3><p>Linux · ARM64 / x86 · 256MB RAM minimum · OTA updates · TPM-bound identity · Secure boot · Confidential containers.</p></div>
+      <div class="card reveal delay-2"><div class="card__icon card__icon--green">🛰</div><h3>Connectivity</h3><p>5G slice · LTE-M · NB-IoT · Starlink · Iridium fallback · QoS-aware path selection · Store-and-forward.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="integrations">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="kicker">05 — Integrations</span>
+      <h2>Plays well with the energy world.</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="card reveal"><h4>SCADA / ADMS</h4><p>Siemens Spectrum · GE PowerOn · ABB Network Manager · OSI monarch.</p></div>
+      <div class="card reveal delay-1"><h4>OEM Inverters</h4><p>Sungrow · Huawei · SMA · Power Electronics · Schneider · Hitachi.</p></div>
+      <div class="card reveal delay-2"><h4>Battery OEMs</h4><p>Tesla · Wartsila · Sungrow · Fluence · CATL · LG ES · BYD.</p></div>
+      <div class="card reveal delay-3"><h4>Markets</h4><p>IEX · PXIL · CAISO · ERCOT · EPEX · Nordpool · NEM · AEMO.</p></div>
+      <div class="card reveal"><h4>ERPs</h4><p>SAP S/4HANA · Oracle Fusion · Workday · Microsoft Dynamics 365.</p></div>
+      <div class="card reveal delay-1"><h4>BI</h4><p>Power BI · Tableau · Looker · Superset · embed via SDK.</p></div>
+      <div class="card reveal delay-2"><h4>Identity</h4><p>SAML 2.0 · OIDC · Okta · Azure AD · Ping · SCIM provisioning.</p></div>
+      <div class="card reveal delay-3"><h4>Carbon registries</h4><p>Verra · Gold Standard · iREC · Climate Action Reserve · GHG Protocol.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="security" style="background: var(--bg-2);">
+  <div class="container">
+    <div class="row-feature">
+      <div class="reveal">
+        <span class="kicker">06 — Security</span>
+        <h2>Critical-infrastructure grade.</h2>
+        <p>Energy is a target. BASKER is built like a military comms stack: zero-trust everywhere, hardware-backed identity, signed and reproducible builds, full forensic audit, OT-aware SOC.</p>
+        <dl class="mt-3">
+          <div class="spec"><dt>Compliance</dt><dd>SOC 2 Type II · ISO 27001 · ISO 27017 · ISO 27018 · NIS2 · NERC-CIP · IEC 62443 · CSF 2.0</dd></div>
+          <div class="spec"><dt>Crypto</dt><dd>FIPS 140-3 modules · HSM-rooted KMS · post-quantum-ready key exchange (Kyber)</dd></div>
+          <div class="spec"><dt>Identity</dt><dd>mTLS device identity · SPIFFE/SPIRE · workload identity federation</dd></div>
+          <div class="spec"><dt>Detection</dt><dd>OT-aware SIEM · 240+ rules · MITRE ICS coverage 92%</dd></div>
+          <div class="spec"><dt>Vulnerability</dt><dd>SBOM for every release · 24h critical patch SLA · bug bounty program</dd></div>
+        </dl>
+      </div>
+      <div class="row-feature__visual reveal delay-1">
+        <h4>Threat surface coverage</h4>
+        <small>MITRE ATT&amp;CK for ICS</small>
+        <div class="chart-box chart-box--md mt-2"><canvas id="secCov"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="sla">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="kicker">07 — SLA & scale</span>
+      <h2>Production guarantees.</h2>
+    </div>
+    <div class="grid grid-4">
+      <div class="stat reveal"><strong>99.995%</strong><span class="stat__label">Cloud uptime</span></div>
+      <div class="stat stat--cyan reveal delay-1"><strong>12M ev/s</strong><span class="stat__label">Streaming throughput</span></div>
+      <div class="stat stat--green reveal delay-2"><strong>50ms</strong><span class="stat__label">p99 ingestion latency</span></div>
+      <div class="stat reveal delay-3"><strong>15s / 60s</strong><span class="stat__label">RPO / RTO</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h2>Ready to plug your fleet in?</h2>
+      <p>Most customers are running a pilot in 6 weeks. Run an opportunity scan in 14 days.</p>
+      <a href="contact.html" class="btn btn--primary btn--lg">Book a platform deep-dive →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/img/basker-mark.svg" alt="BASKER" />
+        <p><strong style="color:var(--ink-0);">BASKER Energy</strong><br/>The intelligent energy infrastructure company. Built with BCG. Engineered for the planet.</p>
+      </div>
+      <div class="footer__col"><h5>Product</h5>
+        <a href="platform.html">Energy Cloud</a><a href="solutions.html">12 Solutions</a><a href="dashboard.html">Live Dashboard</a><a href="calculator.html">ROI Calculator</a><a href="assistant.html">Ask BASKER AI</a>
+      </div>
+      <div class="footer__col"><h5>Solutions</h5>
+        <a href="industries.html">Industries</a><a href="solutions.html#carbon">Carbon &amp; ESG</a><a href="solutions.html#cyber">Cybersecurity</a><a href="map.html">Global Reach</a>
+      </div>
+      <div class="footer__col"><h5>Company</h5>
+        <a href="about.html">About</a><a href="about.html#leadership">Leadership</a><a href="investors.html">Investors</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col"><h5>Connect</h5>
+        <a href="mailto:basker.global@gmail.com">basker.global@gmail.com</a><a href="tel:+917600565870">+91 76005 65870</a><a href="https://github.com/anshvachhani04" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <div>© <span data-year>2026</span> BASKER Energy<span class="footer__sun"></span>Bhāskara · Akṣaya · Śakti · Kriyā · Enhancement · Renewal</div>
+      <div><a href="contact.html">Privacy</a> · <a href="contact.html">Terms</a> · <a href="contact.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+(function () {
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.color = '#A6B3CC';
+  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.animation = false;
+
+  const ctx1 = document.getElementById('aiAcc');
+  if (ctx1) new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: ['1h','3h','6h','12h','24h','48h','72h','168h'],
+      datasets: [
+        { label: 'Generation MAPE', data: [98.7,98.1,97.6,96.9,96.4,94.2,91.8,87.3], borderColor: '#E87722', backgroundColor: 'rgba(232,119,34,0.12)', tension: 0.4, fill: true, pointRadius: 4 },
+        { label: 'Demand MAPE', data: [97.5,96.8,95.4,93.9,92.1,89.6,86.4,81.2], borderColor: '#00C4FF', backgroundColor: 'rgba(0,196,255,0.12)', tension: 0.4, fill: true, pointRadius: 4 },
+        { label: 'Price MAPE', data: [94.2,92.1,89.8,87.4,84.7,80.3,76.2,68.4], borderColor: '#00E5A0', backgroundColor: 'rgba(0,229,160,0.12)', tension: 0.4, fill: true, pointRadius: 4 }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 60, max: 100, ticks: { callback: v => v + '%' } } }, plugins: { legend: { position: 'bottom' } } }
+  });
+
+  const ctx2 = document.getElementById('secCov');
+  if (ctx2) new Chart(ctx2, {
+    type: 'radar',
+    data: {
+      labels: ['Initial Access', 'Execution', 'Persistence', 'Privilege', 'Defense Evasion', 'Discovery', 'Lateral Movt', 'Collection', 'Cmd & Ctrl', 'Inhibit Response', 'Impair', 'Impact'],
+      datasets: [
+        { label: 'BASKER coverage', data: [95,92,90,94,89,91,93,90,92,96,93,95], borderColor: '#E87722', backgroundColor: 'rgba(232,119,34,0.20)', pointBackgroundColor: '#E87722' },
+        { label: 'Industry avg', data: [60,55,52,48,50,58,55,50,52,45,48,46], borderColor: '#A6B3CC', backgroundColor: 'rgba(166,179,204,0.10)', pointBackgroundColor: '#A6B3CC' }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false, scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.08)' }, angleLines: { color: 'rgba(255,255,255,0.08)' }, pointLabels: { color: '#A6B3CC', font: { size: 11 } } } }, plugins: { legend: { position: 'bottom' } } }
+  });
+})();
+</script>
+</body>
+</html>

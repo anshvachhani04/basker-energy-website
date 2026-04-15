@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="On-demand energy strategist powered by BASKER intelligence." />
+<meta name="theme-color" content="#0A0E1A" />
+<meta property="og:title" content="Ask BASKER AI — BASKER Energy" />
+<meta property="og:description" content="On-demand energy strategist powered by BASKER intelligence." />
+<title>Ask BASKER AI — BASKER Energy</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__brand" aria-label="BASKER Energy home">
+      <img src="assets/img/favicon.svg" alt="" />
+      <div><span>BASKER</span><small>ENERGY</small></div>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="platform.html">Platform</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="industries.html">Industries</a>
+      <a href="dashboard.html">Live Demo</a>
+      <a href="investors.html">Investors</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav__cta">
+      <a href="calculator.html" class="btn btn--ghost">ROI Calculator</a>
+      <a href="contact.html" class="btn btn--primary btn--sm">Talk to BASKER →</a>
+      <button class="nav__burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="pagehead">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">BASKER</a> / Ask BASKER AI</div>
+    <span class="chip"><span class="chip__dot"></span>Beta · scripted demo · for live access contact us</span>
+    <h1 class="mt-2">Ask BASKER AI.</h1>
+    <p>Your on-demand energy strategist. Ask about energy markets, technology choices, regulatory compliance, decarbonization roadmaps and BASKER's solutions. This demo runs scripted answers for safety; for the production assistant <a href="contact.html" style="color:var(--accent);">contact us</a>.</p>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="grid" style="grid-template-columns: 1fr 320px; gap: 24px;">
+      <div class="reveal">
+        <div class="chat">
+          <div class="chat__log" id="chatLog">
+            <div class="chat__bubble chat__bubble--bot"><strong>BASKER AI</strong><br/>Hello! I'm BASKER AI — your energy strategist. Ask me about decarbonization, energy storage economics, grid stability, renewable integration, or BASKER's platform. Try one of the suggested questions below.</div>
+          </div>
+          <div class="chat__suggest" id="chatSug">
+            <button data-q="What is BASKER and how is it different from Siemens or Tesla?">Who is BASKER?</button>
+            <button data-q="Explain the ROI of deploying BESS for industrial peak shaving">BESS peak shaving ROI</button>
+            <button data-q="What is virtual power plant (VPP) and how does it work?">What is a VPP?</button>
+            <button data-q="How does BASKER handle cybersecurity for critical infrastructure?">OT cybersecurity</button>
+            <button data-q="Walk me through a 6-week pilot plan">6-week pilot plan</button>
+            <button data-q="What are Scope 1, 2, and 3 emissions and how do you measure Scope 3?">Scope 1/2/3</button>
+          </div>
+          <form class="chat__form" onsubmit="return chatSend(event)">
+            <input id="chatInp" type="text" placeholder="Ask about energy strategy, BASKER's platform, or compliance…" autocomplete="off" />
+            <button class="btn btn--primary" type="submit">Ask →</button>
+          </form>
+        </div>
+      </div>
+      <div class="reveal delay-1">
+        <div class="card card--solid">
+          <h3 style="font-size:18px;">What this can do</h3>
+          <ul style="padding-left: 18px; color: var(--ink-2); font-size:14px; margin: 0;">
+            <li>Energy strategy questions</li>
+            <li>Technology comparisons</li>
+            <li>Regulatory navigation (NIS2, CSRD, BRSR, NERC-CIP)</li>
+            <li>BASKER platform overview</li>
+            <li>Pilot plans and ROI logic</li>
+          </ul>
+        </div>
+        <div class="card mt-3">
+          <h3 style="font-size:18px;">For real-time access</h3>
+          <p style="font-size:14px;">Production BASKER AI integrates with your live data, uses your tariffs and grid signals, and is governed by your security policies.</p>
+          <a href="contact.html" class="btn btn--primary">Request access →</a>
+        </div>
+        <div class="card card--solid mt-3" style="background:rgba(245,197,24,0.06); border-color:rgba(245,197,24,0.3);">
+          <h3 style="font-size:14px; color:var(--amber);">⚠ Demo notice</h3>
+          <p style="margin:0; font-size:13px;">This page runs scripted answers for safety and reproducibility — not a live LLM. For production AI access, please contact our team.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/img/basker-mark.svg" alt="BASKER" />
+        <p><strong style="color:var(--ink-0);">BASKER Energy</strong><br/>The intelligent energy infrastructure company. Built with BCG. Engineered for the planet.</p>
+      </div>
+      <div class="footer__col"><h5>Product</h5>
+        <a href="platform.html">Energy Cloud</a><a href="solutions.html">12 Solutions</a><a href="dashboard.html">Live Dashboard</a><a href="calculator.html">ROI Calculator</a><a href="assistant.html">Ask BASKER AI</a>
+      </div>
+      <div class="footer__col"><h5>Solutions</h5>
+        <a href="industries.html">Industries</a><a href="solutions.html#carbon">Carbon &amp; ESG</a><a href="solutions.html#cyber">Cybersecurity</a><a href="map.html">Global Reach</a>
+      </div>
+      <div class="footer__col"><h5>Company</h5>
+        <a href="about.html">About</a><a href="about.html#leadership">Leadership</a><a href="investors.html">Investors</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col"><h5>Connect</h5>
+        <a href="mailto:basker.global@gmail.com">basker.global@gmail.com</a><a href="tel:+917600565870">+91 76005 65870</a><a href="https://github.com/anshvachhani04" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <div>© <span data-year>2026</span> BASKER Energy<span class="footer__sun"></span>Bhāskara · Akṣaya · Śakti · Kriyā · Enhancement · Renewal</div>
+      <div><a href="contact.html">Privacy</a> · <a href="contact.html">Terms</a> · <a href="contact.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+const QA = [
+  { match: /basker.*differ|differ.*basker|vs.*siemens|vs.*tesla|who.*basker/i,
+    a: "BASKER Energy is an <strong>intelligent energy infrastructure company</strong> — not a hardware vendor like Siemens or Tesla. We sit above hardware as the AI-native control plane that unifies generation, storage, grid, EVs, carbon and security in 12 plug-in modules. Where Siemens sells turbines and Tesla sells Powerwalls, BASKER sells the operating system that orchestrates them. Time-to-value: 6 weeks vs 9-12 months for incumbents. Multi-cloud, sovereign-deployable, and built AI-first from day one." },
+
+  { match: /bess|battery|storage.*roi|peak.*shav|battery.*roi/i,
+    a: "BESS for industrial peak shaving typically pays back in <strong>4-6 years</strong> on standalone economics, and 11-18 months when stacked with revenue from frequency response, demand response and energy arbitrage. BASKER's Storage Intelligence Suite uses reinforcement learning to revenue-stack across markets — customers report <strong>+41% revenue per MWh</strong> and <strong>+22% battery cycle life</strong>. The math: a 10 MWh / 5 MW BESS at ₹3 Cr/MWh CapEx, with 350 cycles/yr at ₹4/kWh peak-offpeak spread + ₹1.2 Cr/yr in frequency response, returns ~₹7.6 Cr/yr — payback under 4 years before BASKER, ~14 months with us." },
+
+  { match: /vpp|virtual.*power.*plant/i,
+    a: "A <strong>Virtual Power Plant (VPP)</strong> is a software-aggregated portfolio of distributed energy resources — rooftop solar, EVs, batteries, smart thermostats, industrial loads — that the operator dispatches as if it were a single power plant. The operator can bid the aggregated capacity into wholesale markets, deliver frequency response, or balance the grid in real time. BASKER ships a production VPP module (Solution #11 — Energy Marketplace) with sub-second dispatch, OCPP/OCPI integration for EVs, and compliance-aware bidding for IEX / EPEX / Nordpool / CAISO." },
+
+  { match: /cyber|security|nis2|nerc|62443|critical.*infra/i,
+    a: "BASKER treats energy as <strong>critical infrastructure</strong> — designed to military comms standards. Every device has TPM-bound mTLS identity (SPIFFE/SPIRE), every workload runs zero-trust by default, every release ships a signed SBOM, and our OT-aware SOC has 92% MITRE ATT&CK for ICS coverage. We are SOC 2 Type II, ISO 27001, ISO 27017/18 certified, and ship compliance automation for NIS2, NERC-CIP, IEC 62443 and the EU AI Act. We support sovereign and air-gapped deployments." },
+
+  { match: /pilot|6.*week|roll.*out|deploy.*plan/i,
+    a: "A typical BASKER pilot follows this cadence:<br/><br/><strong>Week 1-2 — Discovery:</strong> Connect data sources (SCADA, meters, OT). Map your assets to BASKER schema. Define success metrics with you and your auditor.<br/><strong>Week 3-4 — Configuration:</strong> Spin up your tenant on the cloud / region of choice. Deploy edge runtime. Train models on your historicals.<br/><strong>Week 5 — Shadow operation:</strong> BASKER runs in advisory mode alongside your existing systems. Daily comparison reports.<br/><strong>Week 6 — Go-live:</strong> Activate dispatch / control. Begin measured outcomes. Sign extension or full roll-out.<br/><br/>Most customers see the first measurable ROI in week 8-12." },
+
+  { match: /scope|emission|ghg|esg|carbon.*account/i,
+    a: "<strong>Scope 1</strong> = direct emissions from sources you own (e.g. on-site diesel gensets, fleet vehicles). <strong>Scope 2</strong> = indirect emissions from purchased electricity, heat or steam. <strong>Scope 3</strong> = all other indirect emissions in your value chain — purchased goods, transportation, employee commute, downstream use of products. Scope 3 is hardest because the data is in your suppliers, not in your plants.<br/><br/>BASKER's Carbon Intelligence Platform automates Scope 1 from sensors, Scope 2 from hourly grid factors (location- + market-based), and Scope 3 by ingesting supplier data via EDI / supplier portal / spend-based factors. We auto-build CSRD, BRSR, GRI, CDP and TCFD reports — audit-grade." },
+
+  { match: /price|cost|how.*much|pricing/i,
+    a: "BASKER prices on a <strong>SaaS subscription</strong> model — typically ₹40-₹120 lakhs per module per year, plus a small per-MW platform fee. Industrial Energy OS pilots typically start at ₹60 lakhs / yr with a one-time deployment fee of ₹15-30 lakhs. We offer outcome-based pricing on storage and PPA-capture modules — we earn a share of measured savings. Contact our team at basker.global@gmail.com for a tailored quote." },
+
+  { match: /v2g|ev|vehicle.*grid|charg/i,
+    a: "<strong>Vehicle-to-Grid (V2G)</strong> is bidirectional EV charging — your car can power your home, your factory, or sell back to the grid. BASKER's EV + V2G Platform (Solution #5) is OCPP 2.0.1 + ISO 15118-20 native, supports Plug & Charge (PnC), and integrates roaming via OCPI. We orchestrate depots of 1k+ vehicles, and our smart-charge AI can save 24-38% on fleet electricity costs by dynamically routing charging to cheap-and-clean hours. V2G revenue stacks: arbitrage + frequency response + demand response — typically ₹40k-80k/yr per vehicle in active markets." },
+
+  { match: /h2|hydrogen|green.*h/i,
+    a: "BASKER ships a Green Hydrogen Suite (planned 2026-27) for electrolyzer fleet management, storage scheduling, and hydrogen-as-a-service contracts. Our Hybrid Plant Manager already supports hydrogen as a flex resource — solar feeds electrolyzer when prices are low, hydrogen sells to industrial off-takers (steel, fertilizer, refining) when prices recover. We optimize the round-trip economics including water treatment, electrolyzer SoH, storage compression, and offtake contracts." },
+
+  { match: /digital.*twin|simulat/i,
+    a: "BASKER's Digital Twin Engine (Solution #6) provides physics-accurate, real-time virtual replicas of your assets — solar plants, batteries, microgrids, substations. We ingest CAD/GIS (CityGML, IFC, glTF) and live telemetry to keep the twin synchronized at 60 Hz. Use cases: simulate failures before they happen, run what-if planning for retrofits, train operators in a safe sandbox, generate AR/VR walkthroughs for board reviews. Built on Three.js + NVIDIA Omniverse Kit + ROS 2." },
+
+  { match: /default/, a: "I can answer questions on energy strategy, BASKER's 12 solution modules, technology comparisons, decarbonization roadmaps, and regulatory compliance. Try one of the suggested questions on the right, or ask something like <em>'How do I decarbonize a steel plant?'</em> or <em>'What is the ROI of solar + storage for a 200 MW load?'</em>" }
+];
+
+function botReply(q) {
+  for (const r of QA) {
+    if (r.match.test(q)) return r.a;
+  }
+  return QA[QA.length-1].a;
+}
+
+function bubble(text, who) {
+  const log = document.getElementById('chatLog');
+  const b = document.createElement('div');
+  b.className = 'chat__bubble chat__bubble--' + who;
+  b.innerHTML = (who === 'bot' ? '<strong>BASKER AI</strong><br/>' : '') + text;
+  log.appendChild(b);
+  log.scrollTop = log.scrollHeight;
+}
+
+function chatSend(e) {
+  if (e) e.preventDefault();
+  const inp = document.getElementById('chatInp');
+  const q = inp.value.trim();
+  if (!q) return false;
+  bubble(q, 'user');
+  inp.value = '';
+  setTimeout(() => bubble(botReply(q), 'bot'), 600);
+  return false;
+}
+
+document.getElementById('chatSug').addEventListener('click', function (e) {
+  const b = e.target.closest('button');
+  if (!b) return;
+  const q = b.getAttribute('data-q');
+  document.getElementById('chatInp').value = q;
+  chatSend();
+});
+</script>
+</body>
+</html>
