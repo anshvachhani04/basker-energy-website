@@ -163,11 +163,11 @@
           <h4 style="margin:0;">Generation mix · 24h</h4>
           <span class="chip chip--green"><span class="beacon"></span>Streaming</span>
         </div>
-        <canvas id="genMixChart" height="180"></canvas>
+        <div class="chart-box chart-box--md"><canvas id="genMixChart"></canvas></div>
       </div>
       <div class="dash__item--4">
         <h4 style="margin:0 0 14px;">Demand vs Forecast</h4>
-        <canvas id="demandChart" height="180"></canvas>
+        <div class="chart-box chart-box--md"><canvas id="demandChart"></canvas></div>
       </div>
     </div>
     <div class="text-center mt-4">
@@ -535,72 +535,99 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
-/* Mini charts on home page */
+/* Mini charts on home page — stable streaming, no sliding, no jitter */
 (function () {
   if (typeof Chart === 'undefined') return;
   Chart.defaults.color = '#A6B3CC';
   Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
   Chart.defaults.font.family = "Inter, sans-serif";
+  Chart.defaults.animation = false; // disable global animation for stability
+  Chart.defaults.animations.colors = false;
+  Chart.defaults.animations.x = false;
+  Chart.defaults.responsiveAnimationDuration = 0;
 
-  const hours = Array.from({length: 24}, (_,i) => `${String(i).padStart(2,'0')}:00`);
-  const solar = hours.map((_,i) => Math.max(0, Math.sin((i-6)/12 * Math.PI) * 1800 + (Math.random()*120-60)));
-  const wind = hours.map(() => 600 + Math.random()*400);
-  const battery = hours.map((_,i) => i>17 || i<7 ? 400 + Math.random()*300 : -150 + Math.random()*60);
-  const grid = hours.map(() => 1100 + Math.random()*200);
+  const hours = Array.from({length: 24}, (_,i) => String(i).padStart(2,'0') + ':00');
+  const solar = hours.map((_,i) => Math.max(0, Math.sin((i-6)/12 * Math.PI) * 1800));
+  const wind = hours.map((_,i) => 600 + Math.sin(i/3)*300 + 150);
+  const battery = hours.map((_,i) => i>17 || i<7 ? 450 : -120);
+  const grid = hours.map((_,i) => 1100 + Math.sin(i/2)*180);
 
+  let genChart;
   const gen = document.getElementById('genMixChart');
-  if (gen) new Chart(gen, {
-    type: 'bar',
-    data: {
-      labels: hours,
-      datasets: [
-        { label: 'Solar', data: solar, backgroundColor: '#E87722', stack: 'a', borderRadius: 4 },
-        { label: 'Wind', data: wind, backgroundColor: '#00C4FF', stack: 'a', borderRadius: 4 },
-        { label: 'Battery', data: battery, backgroundColor: '#00E5A0', stack: 'a', borderRadius: 4 },
-        { label: 'Grid Import', data: grid, backgroundColor: '#8C7CFF', stack: 'a', borderRadius: 4 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
-      scales: {
-        x: { stacked: true, grid: { display: false }, ticks: { maxTicksLimit: 12 } },
-        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => v + ' MW' } }
+  if (gen && !gen.dataset.inited) {
+    gen.dataset.inited = '1';
+    genChart = new Chart(gen, {
+      type: 'bar',
+      data: {
+        labels: hours,
+        datasets: [
+          { label: 'Solar', data: solar.slice(), backgroundColor: '#E87722', stack: 'a', borderRadius: 4 },
+          { label: 'Wind', data: wind.slice(), backgroundColor: '#00C4FF', stack: 'a', borderRadius: 4 },
+          { label: 'Battery', data: battery.slice(), backgroundColor: '#00E5A0', stack: 'a', borderRadius: 4 },
+          { label: 'Grid Import', data: grid.slice(), backgroundColor: '#8C7CFF', stack: 'a', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
+        scales: {
+          x: { stacked: true, grid: { display: false }, ticks: { maxTicksLimit: 12 } },
+          y: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => v + ' MW' } }
+        }
       }
-    }
-  });
+    });
+  }
 
   const dem = document.getElementById('demandChart');
-  if (dem) new Chart(dem, {
-    type: 'line',
-    data: {
-      labels: hours,
-      datasets: [
-        { label: 'Forecast', data: hours.map((_,i) => 2800 + Math.sin(i/4)*600), borderColor: '#A6B3CC', borderDash: [4,4], tension: 0.4, pointRadius: 0 },
-        { label: 'Actual', data: hours.map((_,i) => 2800 + Math.sin(i/4)*600 + (Math.random()*200-100)), borderColor: '#E87722', tension: 0.4, pointRadius: 0, fill: true, backgroundColor: 'rgba(232,119,34,0.12)' }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
-      scales: { y: { ticks: { callback: v => v + ' MW' } } }
-    }
-  });
+  if (dem && !dem.dataset.inited) {
+    dem.dataset.inited = '1';
+    const fc = hours.map((_,i) => 2800 + Math.sin(i/4)*600);
+    const ac = fc.map((v,i) => v + Math.sin(i*1.7)*80);
+    new Chart(dem, {
+      type: 'line',
+      data: {
+        labels: hours,
+        datasets: [
+          { label: 'Forecast', data: fc, borderColor: '#A6B3CC', borderDash: [4,4], tension: 0.4, pointRadius: 0 },
+          { label: 'Actual', data: ac, borderColor: '#E87722', tension: 0.4, pointRadius: 0, fill: true, backgroundColor: 'rgba(232,119,34,0.12)' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14 } } },
+        scales: { y: { ticks: { callback: v => v + ' MW' } } }
+      }
+    });
+  }
 
-  /* Live KPI tickers */
+  /* Live KPI tickers — stable formatting, no layout shift */
   const liveGen = document.getElementById('liveGen');
   const liveSoc = document.getElementById('liveSoc');
   const liveHz = document.getElementById('liveHz');
   const liveCo2 = document.getElementById('liveCo2');
   let g = 4182, s = 73.2, h = 50.012, c = 5842;
+  function fmtN(n) { return n.toLocaleString('en-US'); }
   function tick() {
-    g += (Math.random()*40 - 20); s += (Math.random()*0.4 - 0.2); h += (Math.random()*0.02 - 0.01); c += Math.random()*4;
-    if (liveGen) liveGen.textContent = Math.round(g).toLocaleString() + ' MW';
+    g += (Math.random()*30 - 15);
+    s = Math.max(55, Math.min(92, s + (Math.random()*0.3 - 0.15)));
+    h = Math.max(49.98, Math.min(50.05, h + (Math.random()*0.01 - 0.005)));
+    c += Math.random()*3 + 1;
+    if (liveGen) liveGen.textContent = fmtN(Math.round(g)) + ' MW';
     if (liveSoc) liveSoc.textContent = s.toFixed(1) + ' %';
     if (liveHz) liveHz.textContent = h.toFixed(3) + ' Hz';
-    if (liveCo2) liveCo2.textContent = Math.round(c).toLocaleString() + ' T';
+    if (liveCo2) liveCo2.textContent = fmtN(Math.round(c)) + ' T';
+
+    /* Tiny in-place data refresh for generation chart — NO label sliding */
+    if (genChart) {
+      const ds = genChart.data.datasets;
+      for (let i = 0; i < 24; i++) {
+        ds[0].data[i] = Math.max(0, solar[i] + (Math.random()*60-30));
+        ds[1].data[i] = wind[i] + (Math.random()*80-40);
+      }
+      genChart.update('none');
+    }
   }
-  setInterval(tick, 1500);
+  setInterval(tick, 2000);
 })();
 </script>
 </body>

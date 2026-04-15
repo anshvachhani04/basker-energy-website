@@ -62,20 +62,20 @@
           <h4 style="margin:0;">Generation mix · last 24h</h4>
           <span class="chip chip--green"><span class="beacon"></span>Streaming</span>
         </div>
-        <canvas id="dGenChart" height="200"></canvas>
+        <div class="chart-box chart-box--md"><canvas id="dGenChart"></canvas></div>
       </div>
       <div class="dash__item--6">
         <h4 style="margin:0 0 14px;">Forecast vs Actual demand</h4>
-        <canvas id="dDemChart" height="200"></canvas>
+        <div class="chart-box chart-box--md"><canvas id="dDemChart"></canvas></div>
       </div>
 
       <div class="dash__item--4">
         <h4 style="margin:0 0 14px;">Today's market price (DAM)</h4>
-        <canvas id="dPriceChart" height="180"></canvas>
+        <div class="chart-box chart-box--sm"><canvas id="dPriceChart"></canvas></div>
       </div>
       <div class="dash__item--4">
         <h4 style="margin:0 0 14px;">CO₂ avoided (rolling)</h4>
-        <canvas id="dCo2Chart" height="180"></canvas>
+        <div class="chart-box chart-box--sm"><canvas id="dCo2Chart"></canvas></div>
       </div>
       <div class="dash__item--4">
         <h4 style="margin:0 0 14px;">Top-5 active alerts</h4>
@@ -91,7 +91,7 @@
             <span class="chip" style="background:rgba(255,92,92,0.14); color:var(--red); border-color:rgba(255,92,92,0.3);"><span class="chip__dot"></span>Critical 7</span>
           </div>
         </div>
-        <div id="assetGrid" style="display:grid; grid-template-columns: repeat(48, 1fr); gap: 4px;"></div>
+        <div id="assetGrid" class="asset-grid"></div>
         <p class="meta mt-2">Each cell is one asset. Color = current health score. Click for telemetry (demo).</p>
       </div>
     </div>
@@ -145,47 +145,64 @@
   if (typeof Chart === 'undefined') return;
   Chart.defaults.color = '#A6B3CC';
   Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.animation = false;
 
   const hours = Array.from({length: 24}, (_, i) => String(i).padStart(2,'0') + ':00');
-  let solar = hours.map((_,i) => Math.max(0, Math.sin((i-6)/12 * Math.PI) * 1800));
-  let wind = hours.map(() => 600 + Math.random()*400);
-  let battery = hours.map((_,i) => i>17 || i<7 ? 400 + Math.random()*300 : -150 + Math.random()*60);
-  let grid = hours.map(() => 1100 + Math.random()*200);
+  const solar = hours.map((_,i) => Math.max(0, Math.sin((i-6)/12 * Math.PI) * 1800));
+  const wind = hours.map((_,i) => 600 + Math.sin(i/3)*200 + 180);
+  const battery = hours.map((_,i) => i>17 || i<7 ? 450 : -120);
+  const grid = hours.map((_,i) => 1100 + Math.sin(i/2)*180);
 
-  const gen = new Chart(document.getElementById('dGenChart'), {
-    type: 'bar',
-    data: { labels: hours, datasets: [
-      { label: 'Solar', data: solar, backgroundColor: '#E87722', stack:'a', borderRadius:3 },
-      { label: 'Wind', data: wind, backgroundColor: '#00C4FF', stack:'a', borderRadius:3 },
-      { label: 'Battery', data: battery, backgroundColor: '#00E5A0', stack:'a', borderRadius:3 },
-      { label: 'Grid', data: grid, backgroundColor: '#8C7CFF', stack:'a', borderRadius:3 }
-    ]},
-    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom', labels:{boxWidth:10}}}, scales:{x:{stacked:true, grid:{display:false}}, y:{stacked:true, ticks:{callback:v=>v+' MW'}}} }
-  });
+  const gCtx = document.getElementById('dGenChart');
+  let gen = null;
+  if (gCtx && !gCtx.dataset.inited) {
+    gCtx.dataset.inited = '1';
+    gen = new Chart(gCtx, {
+      type: 'bar',
+      data: { labels: hours, datasets: [
+        { label: 'Solar', data: solar.slice(), backgroundColor: '#E87722', stack:'a', borderRadius:3 },
+        { label: 'Wind', data: wind.slice(), backgroundColor: '#00C4FF', stack:'a', borderRadius:3 },
+        { label: 'Battery', data: battery.slice(), backgroundColor: '#00E5A0', stack:'a', borderRadius:3 },
+        { label: 'Grid', data: grid.slice(), backgroundColor: '#8C7CFF', stack:'a', borderRadius:3 }
+      ]},
+      options: { responsive:true, maintainAspectRatio:false, animation:false, plugins:{legend:{position:'bottom', labels:{boxWidth:10}}}, scales:{x:{stacked:true, grid:{display:false}}, y:{stacked:true, ticks:{callback:v=>v+' MW'}}} }
+    });
+  }
 
   const fc = hours.map((_,i) => 2800 + Math.sin(i/4)*600);
-  const ac = hours.map((_,i) => 2800 + Math.sin(i/4)*600 + (Math.random()*200-100));
-  const dem = new Chart(document.getElementById('dDemChart'), {
-    type:'line', data:{labels:hours, datasets:[
-      {label:'Forecast', data:fc, borderColor:'#A6B3CC', borderDash:[4,4], pointRadius:0, tension:0.4},
-      {label:'Actual', data:ac, borderColor:'#E87722', backgroundColor:'rgba(232,119,34,0.12)', fill:true, pointRadius:0, tension:0.4}
-    ]},
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}, scales:{y:{ticks:{callback:v=>v+' MW'}}}}
-  });
+  const ac = fc.map((v,i) => v + Math.sin(i*1.7)*80);
+  const dCtx = document.getElementById('dDemChart');
+  if (dCtx && !dCtx.dataset.inited) {
+    dCtx.dataset.inited = '1';
+    new Chart(dCtx, {
+      type:'line', data:{labels:hours, datasets:[
+        {label:'Forecast', data:fc, borderColor:'#A6B3CC', borderDash:[4,4], pointRadius:0, tension:0.4},
+        {label:'Actual', data:ac, borderColor:'#E87722', backgroundColor:'rgba(232,119,34,0.12)', fill:true, pointRadius:0, tension:0.4}
+      ]},
+      options:{responsive:true, maintainAspectRatio:false, animation:false, plugins:{legend:{position:'bottom'}}, scales:{y:{ticks:{callback:v=>v+' MW'}}}}
+    });
+  }
 
-  const price = new Chart(document.getElementById('dPriceChart'), {
-    type: 'line',
-    data: { labels: hours, datasets: [{ label: 'DAM (₹/MWh)', data: hours.map((_,i) => 4200 + Math.sin(i/3) * 1800 + Math.random()*400), borderColor:'#F5C518', backgroundColor:'rgba(245,197,24,0.10)', fill:true, tension:0.35, pointRadius:0 }] },
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>'₹'+v}}}}
-  });
+  const pCtx = document.getElementById('dPriceChart');
+  if (pCtx && !pCtx.dataset.inited) {
+    pCtx.dataset.inited = '1';
+    new Chart(pCtx, {
+      type: 'line',
+      data: { labels: hours, datasets: [{ label: 'DAM (₹/MWh)', data: hours.map((_,i) => 4200 + Math.sin(i/3) * 1800), borderColor:'#F5C518', backgroundColor:'rgba(245,197,24,0.10)', fill:true, tension:0.35, pointRadius:0 }] },
+      options:{responsive:true, maintainAspectRatio:false, animation:false, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>'₹'+v}}}}
+    });
+  }
 
-  const co2 = new Chart(document.getElementById('dCo2Chart'), {
-    type: 'line',
-    data: { labels: hours, datasets: [{ label: 'CO₂ avoided (T)', data: hours.map((_,i) => 200 + i*180 + Math.random()*60), borderColor:'#00E5A0', backgroundColor:'rgba(0,229,160,0.12)', fill:true, tension:0.3, pointRadius:0 }] },
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>v+' T'}}}}
-  });
+  const cCtx = document.getElementById('dCo2Chart');
+  if (cCtx && !cCtx.dataset.inited) {
+    cCtx.dataset.inited = '1';
+    new Chart(cCtx, {
+      type: 'line',
+      data: { labels: hours, datasets: [{ label: 'CO₂ avoided (T)', data: hours.map((_,i) => 200 + i*180), borderColor:'#00E5A0', backgroundColor:'rgba(0,229,160,0.12)', fill:true, tension:0.3, pointRadius:0 }] },
+      options:{responsive:true, maintainAspectRatio:false, animation:false, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>v+' T'}}}}
+    });
+  }
 
-  // Alerts list
   const alerts = [
     { sev:'critical', msg:'Inverter SR-220 fault · Solar plant 7', loc:'Rajasthan', time:'2m' },
     { sev:'warning', msg:'Battery cell variance · BESS-04', loc:'Jamnagar', time:'8m' },
@@ -193,42 +210,51 @@
     { sev:'info', msg:'PPA capture below target · Plant 3', loc:'TN', time:'21m' },
     { sev:'info', msg:'Grid freq excursion · Recovered', loc:'Karnataka', time:'29m' }
   ];
-  document.getElementById('dAlerts').innerHTML = alerts.map(a => {
-    const c = a.sev === 'critical' ? '#FF5C5C' : a.sev === 'warning' ? '#F5C518' : '#A6B3CC';
-    return '<li style="display:flex; align-items:flex-start; gap:8px; padding:8px 0; border-bottom:1px solid var(--line);"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:'+c+'; margin-top:6px; flex-shrink:0;"></span><div style="flex:1;"><div style="color:var(--ink-1);">'+a.msg+'</div><div style="font-size:11px; color:var(--ink-3);">'+a.loc+' · '+a.time+' ago</div></div></li>';
-  }).join('');
+  const alertsEl = document.getElementById('dAlerts');
+  if (alertsEl) {
+    alertsEl.innerHTML = alerts.map(a => {
+      const c = a.sev === 'critical' ? '#FF5C5C' : a.sev === 'warning' ? '#F5C518' : '#A6B3CC';
+      return '<li style="display:flex; align-items:flex-start; gap:8px; padding:8px 0; border-bottom:1px solid var(--line);"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:'+c+'; margin-top:6px; flex-shrink:0;"></span><div style="flex:1;"><div style="color:var(--ink-1); font-size:13px;">'+a.msg+'</div><div style="font-size:11px; color:var(--ink-3);">'+a.loc+' · '+a.time+' ago</div></div></li>';
+    }).join('');
+  }
 
-  // Asset grid (312 cells)
   const ag = document.getElementById('assetGrid');
-  if (ag) {
+  if (ag && !ag.dataset.inited) {
+    ag.dataset.inited = '1';
+    let seed = 42;
+    function prand() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
     let html = '';
     for (let i = 0; i < 312; i++) {
-      const r = Math.random();
+      const r = prand();
       let c = '#00E5A0';
       if (r > 0.94) c = '#FF5C5C';
       else if (r > 0.88) c = '#F5C518';
-      html += '<div style="aspect-ratio:1; background:'+c+'; border-radius:2px; opacity:0.85; cursor:pointer;" title="Asset #'+(i+1)+'"></div>';
+      html += '<div style="background:'+c+';" title="Asset #'+(i+1)+' · health '+Math.round((1-r)*100)+'%"></div>';
     }
     ag.innerHTML = html;
   }
 
-  // Live tickers
   let g=4182, d=3946, s=73.2, h=50.012;
-  setInterval(() => {
-    g += Math.random()*40-20; d += Math.random()*30-15; s += Math.random()*0.4-0.2; h += Math.random()*0.02-0.01;
-    document.getElementById('dGen').textContent = Math.round(g).toLocaleString() + ' MW';
-    document.getElementById('dDem').textContent = Math.round(d).toLocaleString() + ' MW';
-    document.getElementById('dSoc').textContent = s.toFixed(1) + ' %';
-    document.getElementById('dHz').textContent = h.toFixed(3) + ' Hz';
+  const fmtN = n => n.toLocaleString('en-US');
+  function update() {
+    g = Math.max(3800, Math.min(4500, g + (Math.random()*30-15)));
+    d = Math.max(3600, Math.min(4300, d + (Math.random()*24-12)));
+    s = Math.max(55, Math.min(92, s + (Math.random()*0.3-0.15)));
+    h = Math.max(49.98, Math.min(50.05, h + (Math.random()*0.01-0.005)));
+    const eGen = document.getElementById('dGen'); if (eGen) eGen.textContent = fmtN(Math.round(g)) + ' MW';
+    const eDem = document.getElementById('dDem'); if (eDem) eDem.textContent = fmtN(Math.round(d)) + ' MW';
+    const eSoc = document.getElementById('dSoc'); if (eSoc) eSoc.textContent = s.toFixed(1) + ' %';
+    const eHz = document.getElementById('dHz'); if (eHz) eHz.textContent = h.toFixed(3) + ' Hz';
 
-    // animate generation chart
-    const lastSolar = solar[solar.length-1];
-    solar = [...solar.slice(1), Math.max(0, lastSolar + (Math.random()*100-50))];
-    wind = [...wind.slice(1), 600 + Math.random()*400];
-    gen.data.datasets[0].data = solar;
-    gen.data.datasets[1].data = wind;
-    gen.update('none');
-  }, 1800);
+    if (gen && gen.data) {
+      for (let i = 0; i < 24; i++) {
+        gen.data.datasets[0].data[i] = Math.max(0, solar[i] + (Math.random()*60-30));
+        gen.data.datasets[1].data[i] = wind[i] + (Math.random()*70-35);
+      }
+      gen.update('none');
+    }
+  }
+  setInterval(update, 2000);
 })();
 </script>
 </body>

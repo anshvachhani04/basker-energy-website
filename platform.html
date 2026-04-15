@@ -117,7 +117,7 @@ plan.report(co2=<span class="c-key">True</span>, esg=<span class="c-key">True</s
       <div class="row-feature__visual reveal">
         <h4>Real-time forecast accuracy by horizon</h4>
         <small>Last 90 days, all sites, generation MAPE</small>
-        <canvas id="aiAcc" height="220" class="mt-2"></canvas>
+        <div class="chart-box chart-box--md mt-2"><canvas id="aiAcc"></canvas></div>
       </div>
     </div>
   </div>
@@ -200,7 +200,7 @@ plan.report(co2=<span class="c-key">True</span>, esg=<span class="c-key">True</s
       <div class="row-feature__visual reveal delay-1">
         <h4>Threat surface coverage</h4>
         <small>MITRE ATT&amp;CK for ICS</small>
-        <canvas id="secCov" height="220" class="mt-2"></canvas>
+        <div class="chart-box chart-box--md mt-2"><canvas id="secCov"></canvas></div>
       </div>
     </div>
   </div>
@@ -265,6 +265,7 @@ plan.report(co2=<span class="c-key">True</span>, esg=<span class="c-key">True</s
   if (typeof Chart === 'undefined') return;
   Chart.defaults.color = '#A6B3CC';
   Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.animation = false;
 
   const ctx1 = document.getElementById('aiAcc');
   if (ctx1) new Chart(ctx1, {

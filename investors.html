@@ -82,12 +82,12 @@
       <div class="chart-card reveal">
         <h4>ARR growth · trailing 24 months</h4>
         <small>Quarterly, INR Cr</small>
-        <canvas id="arrGrowth" height="220" class="mt-2"></canvas>
+        <div class="chart-box chart-box--md mt-2"><canvas id="arrGrowth"></canvas></div>
       </div>
       <div class="chart-card reveal delay-1">
         <h4>Customers by segment</h4>
         <small>As of Q1 2026 · n=1,400 tenants</small>
-        <canvas id="custSeg" height="220" class="mt-2"></canvas>
+        <div class="chart-box chart-box--md mt-2"><canvas id="custSeg"></canvas></div>
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@
     <div class="chart-card mt-4 reveal">
       <h4>Energy software market — historical & projected ($B)</h4>
       <small>Source: BloombergNEF, Wood Mackenzie, BASKER analysis</small>
-      <canvas id="marketChart" height="220" class="mt-2"></canvas>
+      <div class="chart-box chart-box--md mt-2"><canvas id="marketChart"></canvas></div>
     </div>
   </div>
 </section>
@@ -152,7 +152,7 @@
       <div class="row-feature__visual reveal delay-1">
         <h4>Module attach rate over time</h4>
         <small>Avg. modules per customer</small>
-        <canvas id="attachChart" height="220" class="mt-2"></canvas>
+        <div class="chart-box chart-box--md mt-2"><canvas id="attachChart"></canvas></div>
       </div>
     </div>
   </div>
@@ -176,7 +176,7 @@
       </div>
       <div class="row-feature__visual reveal delay-1">
         <h4>Use of funds breakdown</h4>
-        <canvas id="useChart" height="280" class="mt-2"></canvas>
+        <div class="chart-box chart-box--lg mt-2"><canvas id="useChart"></canvas></div>
       </div>
     </div>
   </div>
@@ -256,6 +256,7 @@
   if (typeof Chart === 'undefined') return;
   Chart.defaults.color = '#A6B3CC';
   Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+  Chart.defaults.animation = false;
 
   const arr = document.getElementById('arrGrowth');
   if (arr) new Chart(arr, {

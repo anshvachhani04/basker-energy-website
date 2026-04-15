@@ -63,10 +63,16 @@
     const suffix = el.getAttribute('data-suffix') || '';
     const dur = parseInt(el.getAttribute('data-duration') || '1600', 10);
     const start = performance.now();
+    function fmt(v) {
+      const s = v.toFixed(decimals);
+      const [i, d] = s.split('.');
+      const ii = i.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return d ? ii + '.' + d : ii;
+    }
     function step(ts) {
       const t = Math.min((ts - start) / dur, 1);
       const v = target * easeOutCubic(t);
-      el.textContent = prefix + v.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+      el.textContent = prefix + fmt(v) + suffix;
       if (t < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
