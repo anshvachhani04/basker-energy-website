@@ -1,38 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BASKER Energy — Global Website
 
-## Getting Started
+The official marketing & demo site for **BASKER Energy**, the intelligent energy infrastructure company.
 
-First, run the development server:
+🌐 **Live:** https://anshvachhani04.github.io/basker-energy-website/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Architecture
+
+Pure static HTML / CSS / JavaScript multi-page site, deployed via GitHub Pages.
+No build step required — GitHub Pages serves the repo root directly.
+
+```
+.
+├── index.html              # Home — cinematic hero, 12 solutions, comparison, CTA
+├── platform.html           # Energy Cloud — architecture, AI, data, edge, security
+├── solutions.html          # 12 production-ready solution modules
+├── industries.html         # Sector packs (utilities, industry, cities, etc.)
+├── investors.html          # ARR, market sizing, unit economics, ESG, governance
+├── about.html              # Founder, team, mission, origin story
+├── contact.html            # Contact form + offices + reach paths
+├── calculator.html         # Interactive ROI calculator (live recompute)
+├── dashboard.html          # Live operator console demo (streaming charts)
+├── assistant.html          # Ask BASKER AI (scripted demo)
+├── map.html                # Global deployments map (interactive)
+├── 404.html                # Not-found page
+└── assets/
+    ├── css/main.css        # Full design system
+    ├── js/main.js          # Nav, scroll-reveal, count-up, tabs, sub-nav
+    └── img/                # Logos & favicon
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- HTML5, CSS (custom design tokens), vanilla ES2020 JavaScript
+- Chart.js 4.x via CDN for data visualization
+- Inter + JetBrains Mono via Google Fonts
+- Zero npm dependencies, zero build step
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local preview
 
-## Learn More
+```bash
+python3 -m http.server 8080
+# open http://localhost:8080
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Push to `main`. GitHub Actions workflow `.github/workflows/deploy.yml` deploys to GitHub Pages automatically.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Brand & contact
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-<!-- Deploy trigger: Sun Apr  5 02:25:57 IST 2026 -->
+- **Founder:** Ansh Vachhani
+- **Email:** basker.global@gmail.com
+- **Phone:** +91 76005 65870
+- **GitHub:** [@anshvachhani04](https://github.com/anshvachhani04)

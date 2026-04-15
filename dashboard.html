@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Live BASKER Energy Cloud operator console demo." />
+<meta name="theme-color" content="#0A0E1A" />
+<meta property="og:title" content="Live Dashboard — BASKER Energy" />
+<meta property="og:description" content="Live BASKER Energy Cloud operator console demo." />
+<title>Live Dashboard — BASKER Energy</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+<nav class="nav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__brand" aria-label="BASKER Energy home">
+      <img src="assets/img/favicon.svg" alt="" />
+      <div><span>BASKER</span><small>ENERGY</small></div>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="platform.html">Platform</a>
+      <a href="solutions.html">Solutions</a>
+      <a href="industries.html">Industries</a>
+      <a href="dashboard.html">Live Demo</a>
+      <a href="investors.html">Investors</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav__cta">
+      <a href="calculator.html" class="btn btn--ghost">ROI Calculator</a>
+      <a href="contact.html" class="btn btn--primary btn--sm">Talk to BASKER →</a>
+      <button class="nav__burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="pagehead">
+  <div class="container">
+    <div class="breadcrumbs"><a href="index.html">BASKER</a> / Live Dashboard</div>
+    <span class="chip chip--green"><span class="beacon"></span>Streaming · Demo data</span>
+    <h1 class="mt-2">BASKER Energy Cloud · live demo.</h1>
+    <p>This is a real, scripted demo of the BASKER operator console — the same view our customers use to dispatch, monitor, optimize and report on their fleet. Demo data refreshes every 1.5s.</p>
+  </div>
+</header>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="dash">
+      <div class="dash__item--3 kpi"><span class="label">Live Generation</span><strong id="dGen">4,182 MW</strong><div class="delta">▲ 6.4% vs forecast</div></div>
+      <div class="dash__item--3 kpi"><span class="label">Live Demand</span><strong id="dDem">3,946 MW</strong><div class="delta">Following daily curve</div></div>
+      <div class="dash__item--3 kpi"><span class="label">Battery SoC</span><strong id="dSoc">73.2 %</strong><div class="delta">▲ Charging</div></div>
+      <div class="dash__item--3 kpi"><span class="label">Grid Frequency</span><strong id="dHz">50.012 Hz</strong><div class="delta">±0.05 normal band</div></div>
+
+      <div class="dash__item--6">
+        <div class="between" style="margin-bottom:14px;">
+          <h4 style="margin:0;">Generation mix · last 24h</h4>
+          <span class="chip chip--green"><span class="beacon"></span>Streaming</span>
+        </div>
+        <canvas id="dGenChart" height="200"></canvas>
+      </div>
+      <div class="dash__item--6">
+        <h4 style="margin:0 0 14px;">Forecast vs Actual demand</h4>
+        <canvas id="dDemChart" height="200"></canvas>
+      </div>
+
+      <div class="dash__item--4">
+        <h4 style="margin:0 0 14px;">Today's market price (DAM)</h4>
+        <canvas id="dPriceChart" height="180"></canvas>
+      </div>
+      <div class="dash__item--4">
+        <h4 style="margin:0 0 14px;">CO₂ avoided (rolling)</h4>
+        <canvas id="dCo2Chart" height="180"></canvas>
+      </div>
+      <div class="dash__item--4">
+        <h4 style="margin:0 0 14px;">Top-5 active alerts</h4>
+        <ul id="dAlerts" style="margin:0; padding:0; list-style:none; font-size:13px;"></ul>
+      </div>
+
+      <div class="dash__item--12">
+        <div class="between" style="margin-bottom:14px;">
+          <h4 style="margin:0;">Asset health · 312 assets</h4>
+          <div class="row-wrap">
+            <span class="chip chip--green"><span class="chip__dot"></span>Healthy 287</span>
+            <span class="chip" style="background:rgba(245,197,24,0.14); color:var(--amber); border-color:rgba(245,197,24,0.3);"><span class="chip__dot"></span>Warning 18</span>
+            <span class="chip" style="background:rgba(255,92,92,0.14); color:var(--red); border-color:rgba(255,92,92,0.3);"><span class="chip__dot"></span>Critical 7</span>
+          </div>
+        </div>
+        <div id="assetGrid" style="display:grid; grid-template-columns: repeat(48, 1fr); gap: 4px;"></div>
+        <p class="meta mt-2">Each cell is one asset. Color = current health score. Click for telemetry (demo).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h2>Want this dashboard for your fleet?</h2>
+      <p>Most customers see their first live dashboard within 6 weeks of signing.</p>
+      <div class="row-wrap" style="justify-content:center;">
+        <a href="contact.html" class="btn btn--primary btn--lg">Book a deep-dive →</a>
+        <a href="calculator.html" class="btn btn--lg">Run ROI calculator</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/img/basker-mark.svg" alt="BASKER" />
+        <p><strong style="color:var(--ink-0);">BASKER Energy</strong><br/>The intelligent energy infrastructure company. Built with BCG. Engineered for the planet.</p>
+      </div>
+      <div class="footer__col"><h5>Product</h5>
+        <a href="platform.html">Energy Cloud</a><a href="solutions.html">12 Solutions</a><a href="dashboard.html">Live Dashboard</a><a href="calculator.html">ROI Calculator</a><a href="assistant.html">Ask BASKER AI</a>
+      </div>
+      <div class="footer__col"><h5>Solutions</h5>
+        <a href="industries.html">Industries</a><a href="solutions.html#carbon">Carbon &amp; ESG</a><a href="solutions.html#cyber">Cybersecurity</a><a href="map.html">Global Reach</a>
+      </div>
+      <div class="footer__col"><h5>Company</h5>
+        <a href="about.html">About</a><a href="about.html#leadership">Leadership</a><a href="investors.html">Investors</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer__col"><h5>Connect</h5>
+        <a href="mailto:basker.global@gmail.com">basker.global@gmail.com</a><a href="tel:+917600565870">+91 76005 65870</a><a href="https://github.com/anshvachhani04" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="footer__base">
+      <div>© <span data-year>2026</span> BASKER Energy<span class="footer__sun"></span>Bhāskara · Akṣaya · Śakti · Kriyā · Enhancement · Renewal</div>
+      <div><a href="contact.html">Privacy</a> · <a href="contact.html">Terms</a> · <a href="contact.html">Security</a></div>
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+(function () {
+  if (typeof Chart === 'undefined') return;
+  Chart.defaults.color = '#A6B3CC';
+  Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+
+  const hours = Array.from({length: 24}, (_, i) => String(i).padStart(2,'0') + ':00');
+  let solar = hours.map((_,i) => Math.max(0, Math.sin((i-6)/12 * Math.PI) * 1800));
+  let wind = hours.map(() => 600 + Math.random()*400);
+  let battery = hours.map((_,i) => i>17 || i<7 ? 400 + Math.random()*300 : -150 + Math.random()*60);
+  let grid = hours.map(() => 1100 + Math.random()*200);
+
+  const gen = new Chart(document.getElementById('dGenChart'), {
+    type: 'bar',
+    data: { labels: hours, datasets: [
+      { label: 'Solar', data: solar, backgroundColor: '#E87722', stack:'a', borderRadius:3 },
+      { label: 'Wind', data: wind, backgroundColor: '#00C4FF', stack:'a', borderRadius:3 },
+      { label: 'Battery', data: battery, backgroundColor: '#00E5A0', stack:'a', borderRadius:3 },
+      { label: 'Grid', data: grid, backgroundColor: '#8C7CFF', stack:'a', borderRadius:3 }
+    ]},
+    options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom', labels:{boxWidth:10}}}, scales:{x:{stacked:true, grid:{display:false}}, y:{stacked:true, ticks:{callback:v=>v+' MW'}}} }
+  });
+
+  const fc = hours.map((_,i) => 2800 + Math.sin(i/4)*600);
+  const ac = hours.map((_,i) => 2800 + Math.sin(i/4)*600 + (Math.random()*200-100));
+  const dem = new Chart(document.getElementById('dDemChart'), {
+    type:'line', data:{labels:hours, datasets:[
+      {label:'Forecast', data:fc, borderColor:'#A6B3CC', borderDash:[4,4], pointRadius:0, tension:0.4},
+      {label:'Actual', data:ac, borderColor:'#E87722', backgroundColor:'rgba(232,119,34,0.12)', fill:true, pointRadius:0, tension:0.4}
+    ]},
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}, scales:{y:{ticks:{callback:v=>v+' MW'}}}}
+  });
+
+  const price = new Chart(document.getElementById('dPriceChart'), {
+    type: 'line',
+    data: { labels: hours, datasets: [{ label: 'DAM (₹/MWh)', data: hours.map((_,i) => 4200 + Math.sin(i/3) * 1800 + Math.random()*400), borderColor:'#F5C518', backgroundColor:'rgba(245,197,24,0.10)', fill:true, tension:0.35, pointRadius:0 }] },
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>'₹'+v}}}}
+  });
+
+  const co2 = new Chart(document.getElementById('dCo2Chart'), {
+    type: 'line',
+    data: { labels: hours, datasets: [{ label: 'CO₂ avoided (T)', data: hours.map((_,i) => 200 + i*180 + Math.random()*60), borderColor:'#00E5A0', backgroundColor:'rgba(0,229,160,0.12)', fill:true, tension:0.3, pointRadius:0 }] },
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>v+' T'}}}}
+  });
+
+  // Alerts list
+  const alerts = [
+    { sev:'critical', msg:'Inverter SR-220 fault · Solar plant 7', loc:'Rajasthan', time:'2m' },
+    { sev:'warning', msg:'Battery cell variance · BESS-04', loc:'Jamnagar', time:'8m' },
+    { sev:'warning', msg:'Soiling >12% · Solar panel array A12', loc:'Gujarat', time:'14m' },
+    { sev:'info', msg:'PPA capture below target · Plant 3', loc:'TN', time:'21m' },
+    { sev:'info', msg:'Grid freq excursion · Recovered', loc:'Karnataka', time:'29m' }
+  ];
+  document.getElementById('dAlerts').innerHTML = alerts.map(a => {
+    const c = a.sev === 'critical' ? '#FF5C5C' : a.sev === 'warning' ? '#F5C518' : '#A6B3CC';
+    return '<li style="display:flex; align-items:flex-start; gap:8px; padding:8px 0; border-bottom:1px solid var(--line);"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:'+c+'; margin-top:6px; flex-shrink:0;"></span><div style="flex:1;"><div style="color:var(--ink-1);">'+a.msg+'</div><div style="font-size:11px; color:var(--ink-3);">'+a.loc+' · '+a.time+' ago</div></div></li>';
+  }).join('');
+
+  // Asset grid (312 cells)
+  const ag = document.getElementById('assetGrid');
+  if (ag) {
+    let html = '';
+    for (let i = 0; i < 312; i++) {
+      const r = Math.random();
+      let c = '#00E5A0';
+      if (r > 0.94) c = '#FF5C5C';
+      else if (r > 0.88) c = '#F5C518';
+      html += '<div style="aspect-ratio:1; background:'+c+'; border-radius:2px; opacity:0.85; cursor:pointer;" title="Asset #'+(i+1)+'"></div>';
+    }
+    ag.innerHTML = html;
+  }
+
+  // Live tickers
+  let g=4182, d=3946, s=73.2, h=50.012;
+  setInterval(() => {
+    g += Math.random()*40-20; d += Math.random()*30-15; s += Math.random()*0.4-0.2; h += Math.random()*0.02-0.01;
+    document.getElementById('dGen').textContent = Math.round(g).toLocaleString() + ' MW';
+    document.getElementById('dDem').textContent = Math.round(d).toLocaleString() + ' MW';
+    document.getElementById('dSoc').textContent = s.toFixed(1) + ' %';
+    document.getElementById('dHz').textContent = h.toFixed(3) + ' Hz';
+
+    // animate generation chart
+    const lastSolar = solar[solar.length-1];
+    solar = [...solar.slice(1), Math.max(0, lastSolar + (Math.random()*100-50))];
+    wind = [...wind.slice(1), 600 + Math.random()*400];
+    gen.data.datasets[0].data = solar;
+    gen.data.datasets[1].data = wind;
+    gen.update('none');
+  }, 1800);
+})();
+</script>
+</body>
+</html>

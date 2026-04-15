@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" role="img" aria-label="BASKER">
+  <defs>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0C1933"/>
+      <stop offset="100%" stop-color="#1B3A6B"/>
+    </linearGradient>
+    <linearGradient id="rayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0C1933"/>
+      <stop offset="100%" stop-color="#16284D"/>
+    </linearGradient>
+  </defs>
+  <!-- Sun emblem -->
+  <g transform="translate(110,110)">
+    <!-- Rays -->
+    <g fill="url(#rayGrad)">
+      <polygon points="0,-100 -10,-72 10,-72"/>
+      <polygon points="0,100 -10,72 10,72"/>
+      <polygon points="-100,0 -72,-10 -72,10"/>
+      <polygon points="100,0 72,-10 72,10"/>
+      <polygon points="-71,-71 -55,-55 -45,-65 -65,-45"/>
+      <polygon points="71,71 55,55 45,65 65,45"/>
+      <polygon points="-71,71 -55,55 -45,65 -65,45"/>
+      <polygon points="71,-71 55,-55 45,-65 65,-45"/>
+      <polygon points="-38,-93 -45,-67 -28,-71"/>
+      <polygon points="38,-93 45,-67 28,-71"/>
+      <polygon points="-38,93 -45,67 -28,71"/>
+      <polygon points="38,93 45,67 28,71"/>
+      <polygon points="-93,-38 -67,-45 -71,-28"/>
+      <polygon points="-93,38 -67,45 -71,28"/>
+      <polygon points="93,-38 67,-45 71,-28"/>
+      <polygon points="93,38 67,45 71,28"/>
+    </g>
+    <!-- Outer ring -->
+    <circle r="62" fill="none" stroke="url(#ringGrad)" stroke-width="6"/>
+    <!-- Inner emblem (interlocking diamonds) -->
+    <g fill="none" stroke="#0C1933" stroke-width="5" stroke-linejoin="round">
+      <polygon points="0,-38 32,0 0,38 -32,0"/>
+      <polygon points="0,-22 18,0 0,22 -18,0"/>
+      <circle r="6" fill="#0C1933"/>
+    </g>
+  </g>
+  <!-- Wordmark -->
+  <text x="240" y="148" font-family="Inter, Helvetica, Arial, sans-serif" font-weight="700" font-size="120" letter-spacing="2" fill="#0C1933">BASKER</text>
+</svg>
